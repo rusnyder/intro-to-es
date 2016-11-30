@@ -1,0 +1,56 @@
+{
+  "template": "intro-to-es-*",
+  "settings": {
+    "index": {
+      "number_of_replicas": 0,
+      "analysis": {
+        "analyzer": {
+          "lowercase_non_tokenized": {
+            "type": "custom",
+            "tokenizer": "keyword",
+            "filter": [ "lowercase" ]
+          },
+          "preserve_leading_slash": {
+            "type": "custom",
+            "tokenizer": "preserve_leading_slash",
+            "filter": [ "standard", "lowercase", "stop" ]
+          }
+        },
+        "tokenizer": {
+          "preserve_leading_slash": {
+            "type": "pattern",
+            "pattern": "(?<!^)\\W+"
+          }
+        }
+      }
+    }
+  },
+  "aliases": {
+    "intro-to-es": {}
+  },
+  "mappings": {
+    "chat": {
+      "properties": {
+        "from": {
+          "type": "string",
+          "analyzer": "lowercase_non_tokenized"
+        },
+        "to": {
+          "type": "string",
+          "analyzer": "lowercase_non_tokenized"
+        },
+        "active": {
+          "type": "integer"
+        },
+        "timestamp": {
+          "type": "date",
+          "format": "dateOptionalTime"
+        },
+        "message": {
+          "type": "string",
+          "analyzer": "preserve_leading_slash"
+        }
+      }
+    }
+  }
+}
