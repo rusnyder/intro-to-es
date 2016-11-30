@@ -38,6 +38,9 @@ This guide assumes that you either already have an Elasticsearch node
 running and accessible or that you are able to create one without
 guidance.
 
+_NOTE: All commands from this point assume your Elasticsearch node has
+its HTTP service available at the location http://localhost:9200_
+
 ### 3. Create an index template for all our indices
 To make sure that our indexed data gets analyzed the way we want, we need to
 make sure that we give Elasticsearch the appropriate settings/mappings for
@@ -59,10 +62,8 @@ from that template.  This is nice because once the template has been created,
 we can just start indexing data and new indices will automatically pick up
 their appropriate settings.
 
-Let's go ahead and create the template:
-
-_NOTE: All commands from this point assume your Elasticsearch node has
-its HTTP service available at the location http://localhost:9200_
+Let's go ahead and upload the template (using
+[`intro-to-es-template.json`](./intro-to-es-template.json)):
 
 ```shell
 curl -XPUT http://localhost:9200/_template/intro-to-es -d @intro-to-es-template.json
@@ -73,7 +74,6 @@ This project provides some sample data in the file
 [`bulk-index.jsonl`](./bulk-index.jsonl) that are already in a format the
 [Elasticsearch's Bulk API][es-bulk] accepts, so indexing our data is as
 simple as POSTing that file to Elasticsearch:
-
 
 ```shell
 # Delete any data from a previous run of these steps
