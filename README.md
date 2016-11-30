@@ -135,33 +135,36 @@ tokens/phrases can be treated as "more certainly me" than others.
 ```javascript
 POST /intro-to-es/_search
 {
-  "query": {
-    "bool": {
-      "should": [
-        {
-          "term": {
-            "message": {
-              "value": "@rusnyder",
-              "boost": 3
+   "query": {
+      "bool": {
+         "should": [
+            {
+               "term": {
+                  "message": {
+                      "value": "@rusnyder",
+                      "boost": 10
+                  }
+               }
+            },
+            {
+                "match": {
+                   "message": {
+                       "query": "russ,russell,snyder",
+                       "boost": 2
+                   }
+                }
+            },
+            {
+               "prefix": {
+                  "message": {
+                      "value": "russ",
+                      "boost": 1
+                  }
+               }
             }
-          }
-        },
-        {
-          "match_phrase": {
-            "message": {
-              "query": "russell snyder",
-              "boost": 2
-            }
-          }
-        },
-        {
-          "prefix": {
-            "message": "russ"
-          }
-        }
-      ]
-    }
-  }
+         ]
+      }
+   }
 }
 ```
 

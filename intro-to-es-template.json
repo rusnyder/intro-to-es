@@ -10,16 +10,16 @@
             "tokenizer": "keyword",
             "filter": [ "lowercase" ]
           },
-          "preserve_leading_slash": {
+          "preserve_slack_markup": {
             "type": "custom",
-            "tokenizer": "preserve_leading_slash",
-            "filter": [ "standard", "lowercase", "stop" ]
+            "tokenizer": "preserve_slack_markup",
+            "filter": [ "lowercase" ]
           }
         },
         "tokenizer": {
-          "preserve_leading_slash": {
+          "preserve_slack_markup": {
             "type": "pattern",
-            "pattern": "(?<!^)\\W+"
+            "pattern": "(?<!^)[^a-zA-Z0-9_@]+|\\s*@(?!\\w)"
           }
         }
       }
@@ -48,7 +48,7 @@
         },
         "message": {
           "type": "string",
-          "analyzer": "preserve_leading_slash"
+          "analyzer": "preserve_slack_markup"
         }
       }
     }
